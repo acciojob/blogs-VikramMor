@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,11 +42,11 @@ public class BlogService {
 
         User user= userRepository1.findById(userId).get();
 
-        List<Blog> blogLists=user.getBlogLists();
+        List<Blog> blogLists=user.getBlogList();
 
         blogLists.add(blog);
 
-        user.setBlogLists(blogLists);
+        user.setBlogList(blogLists);
 
         blogRepository1.save(blog);
 
@@ -69,13 +68,13 @@ public class BlogService {
         Image image=imageService1.createAndReturn(blog,description,dimensions);
         image.setBlog(blog);
 
-        List<Image> imageList=blog.getImageLists();
+        ArrayList<Image> imageList=blog.getImageList();
 
         if(imageList==null) imageList=new ArrayList<>();
 
         imageList.add(image);
 
-        blog.setImageLists(imageList);
+        blog.setImageList(imageList);
 
 
         blogRepository1.save(blog);
@@ -86,7 +85,7 @@ public class BlogService {
 
         List<Image> imageList=new ArrayList<>();
 
-        imageList=blog.getImageLists();
+        imageList=blog.getImageList();
         for(Image image: imageList){
             imageRepository.delete(image);
         }
@@ -95,11 +94,11 @@ public class BlogService {
         user=blog.getUser();
         List<Blog> blogList=new ArrayList<>();
 
-        blogList =user.getBlogLists();
+        blogList =user.getBlogList();
 
         blogList.remove(blog);
 
-        user.setBlogLists(blogList);
+        user.setBlogList(blogList);
 
         blogRepository1.delete(blog);
 

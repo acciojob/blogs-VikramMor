@@ -5,7 +5,8 @@ import com.driver.repositories.BlogRepository;
 import com.driver.repositories.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Service
@@ -21,9 +22,9 @@ public class ImageService {
         Image image = new Image();
         image.setDimensions(dimensions);
         image.setDescription(description);
-        List<Image> imageList = blog.getImageLists();
+        ArrayList<Image> imageList = blog.getImageList();
         imageList.add(image);
-        blog.setImageLists(imageList);
+        blog.setImageList(imageList);
         image.setBlog(blog);
         imageRepository2.save(image);
         blogRepository.save(blog);

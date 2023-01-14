@@ -5,8 +5,8 @@ package com.driver.models;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name="blogs")
@@ -66,7 +66,7 @@ public class Blog {
     private User user;
 
     @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
-    private List<Image> imageLists;
+    private ArrayList<Image> imageLists;
 
     public User getUser() {
         return user;
@@ -76,11 +76,11 @@ public class Blog {
         this.user = user;
     }
 
-    public List<Image> getImageLists() {
+    public ArrayList<Image> getImageList() {
         return imageLists;
     }
 
-    public void setImageLists(List<Image> imageLists) {
+    public void setImageList(ArrayList<Image> imageLists) {
         this.imageLists = imageLists;
     }
 }
