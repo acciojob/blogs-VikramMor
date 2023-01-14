@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="blogs")
@@ -66,7 +67,7 @@ public class Blog {
     private User user;
 
     @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
-    private ArrayList<Image> imageList;
+    private List<Image> imageList;
 
     public User getUser() {
         return user;
@@ -76,7 +77,7 @@ public class Blog {
         this.user = user;
     }
 
-    public ArrayList<Image> getImageList() {
+    public List<Image> getImageList() {
         return this.imageList;
     }
 

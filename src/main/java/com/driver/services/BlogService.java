@@ -68,13 +68,13 @@ public class BlogService {
         Image image=imageService1.createAndReturn(blog,description,dimensions);
         image.setBlog(blog);
 
-        ArrayList<Image> imageList=blog.getImageList();
+        List<Image> imageList=blog.getImageList();
 
         if(imageList==null) imageList=new ArrayList<>();
 
         imageList.add(image);
 
-        blog.setImageList(imageList);
+        blog.setImageList((ArrayList<Image>) imageList);
 
 
         blogRepository1.save(blog);
