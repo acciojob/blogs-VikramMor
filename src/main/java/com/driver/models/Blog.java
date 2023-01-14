@@ -66,7 +66,7 @@ public class Blog {
     private User user;
 
     @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
-    private ArrayList<Image> imageLists;
+    private ArrayList<Image> imageList;
 
     public User getUser() {
         return user;
@@ -77,10 +77,10 @@ public class Blog {
     }
 
     public ArrayList<Image> getImageList() {
-        return imageLists;
+        return this.imageList;
     }
 
     public void setImageList(ArrayList<Image> imageLists) {
-        this.imageLists = imageLists;
+        this.imageList = imageLists;
     }
 }
