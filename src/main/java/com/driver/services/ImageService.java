@@ -20,25 +20,34 @@ public class ImageService {
 
     public Image createAndReturn(Blog blog, String description, String dimensions){
 
-        Image image = new Image(description,dimensions);
-//        image.setDimensions(dimensions);
-//        image.setDescription(description);
-        List<Image> imageList = blog.getImageList();
-        imageList.add(image);
-        blog.setImageList((ArrayList<Image>) imageList);
+        Image image = new Image();
+        image.setDimensions(dimensions);
+        image.setDescription(description);
         image.setBlog(blog);
-        imageRepository2.save(image);
+        List<Image> imageList = new ArrayList<>();
+        imageList = blog.getImageList();
+        if(imageList==null){
+            imageList=new ArrayList<>();
+        }
+        imageList.add(image);
+        blog.setImageList(imageList);
+//        imageRepository2.save(image);
         blogRepository.save(blog);
         return image;
     }
 
     public void deleteImage(Image image){
-        imageRepository2.delete(image);
+        if(imageRepository2.findById(image.getId()).isPresent()){
+            imageRepository2.delete(image);
+        }
     }
 
     public Image findById(int id)
     {
-        return imageRepository2.findById(id).get();
+        if(imageRepository2.findById(id).isPresent()){
+            return imageRepository2.findById(id).get();
+        }
+        return null;
     }
 
     public int countImagesInScreen(Image image, String screenDimensions) {

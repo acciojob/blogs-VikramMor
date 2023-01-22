@@ -7,8 +7,13 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int id;
+
     private String description;
     private String dimensions;
+
+    @ManyToOne
+    @JoinColumn
+    private Blog blog;
 
     public Image() {
     }
@@ -41,10 +46,6 @@ public class Image {
     public void setDimensions(String dimensions) {
         this.dimensions = dimensions;
     }
-
-    @ManyToOne
-    @JoinColumn
-    private Blog blog;
 
     public Blog getBlog() {
         return blog;

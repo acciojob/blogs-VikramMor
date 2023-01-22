@@ -27,8 +27,7 @@ public class BlogService {
     ImageRepository imageRepository;
 
     public List<Blog> showBlogs(){
-        List<Blog> list = new ArrayList<>();
-        list=blogRepository1.findAll();
+        List<Blog> list=blogRepository1.findAll();
         return list;
     }
 
@@ -38,25 +37,30 @@ public class BlogService {
         blog.setContent(content);
         blog.setTitle(title);
 
-        blog.setUser(userRepository1.findById(userId).get());
-
         User user= userRepository1.findById(userId).get();
 
+        blog.setUser(user);
+
         List<Blog> blogLists=user.getBlogList();
+
+        if(blogLists==null){
+            blogLists=new ArrayList<>();
+        }
 
         blogLists.add(blog);
 
         user.setBlogList(blogLists);
 
-        blogRepository1.save(blog);
+//        blog.setImageList();
+
 
         userRepository1.save(user);
+//        blogRepository1.save(blog);
 
     }
 
     public Blog findBlogById(int blogId){
-        Blog blog=new Blog();
-        blog = blogRepository1.findById(blogId).get();
+        Blog blog = blogRepository1.findById(blogId).get();
         return  blog;
     }
 
@@ -64,8 +68,8 @@ public class BlogService {
 
         Blog blog= blogRepository1.findById(blogId).get();
 
-
         Image image=imageService1.createAndReturn(blog,description,dimensions);
+
         image.setBlog(blog);
 
         List<Image> imageList=blog.getImageList();
@@ -76,32 +80,35 @@ public class BlogService {
 
         blog.setImageList((ArrayList<Image>) imageList);
 
-
         blogRepository1.save(blog);
     }
 
     public void deleteBlog(int blogId){
-        Blog blog= blogRepository1.findById(blogId).get();
 
-        List<Image> imageList=new ArrayList<>();
-
-        imageList=blog.getImageList();
-        for(Image image: imageList){
-            imageRepository.delete(image);
+        if(blogRepository1.findById(blogId).isPresent()){
+            blogRepository1.deleteById(blogId);
         }
+//        Blog blog= blogRepository1.findById(blogId).get();
 
-        User user= new User();
-        user=blog.getUser();
-        List<Blog> blogList=new ArrayList<>();
+//        List<Image> imageList;
 
-        blogList =user.getBlogList();
+//        imageList=blog.getImageList();
+//        for(Image image: imageList){
+//            imageRepository.delete(image);
+//        }
 
-        blogList.remove(blog);
+//        User user= new User();
+//        user=blog.getUser();
+//        List<Blog> blogList=new ArrayList<>();
 
-        user.setBlogList(blogList);
+//        blogList =user.getBlogList();
 
-        blogRepository1.delete(blog);
-
-        userRepository1.save(user);
+//        blogRepository1.remove(blog);
+//
+//        user.setBlogList(blogList);
+//
+//        blogRepository1.delete(blog);
+//
+//        userRepository1.save(user);
     }
 }

@@ -18,14 +18,23 @@ public class Blog {
     private  int id;
     private String title;
     private String content;
+
     @CreationTimestamp
-    @Temporal(value = TemporalType.TIMESTAMP)
+//    @Temporal(value = TemporalType.TIMESTAMP)
     private Date pubDate;
+
+    @ManyToOne
+    @JoinColumn
+    private User user;
+
+    @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
+    private List<Image> imageList = new ArrayList<>();
 
     public Blog() {
     }
-    public Blog(int id,String title, String content) {
-        this.id=id;
+
+
+    public Blog(String title, String content) {
         this.title = title;
         this.content = content;
     }
@@ -62,13 +71,6 @@ public class Blog {
         this.pubDate = pubDate;
     }
 
-    @ManyToOne
-    @JoinColumn
-    private User user;
-
-    @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
-    private List<Image> imageList;
-
     public User getUser() {
         return user;
     }
@@ -81,7 +83,7 @@ public class Blog {
         return this.imageList = new ArrayList<>();
     }
 
-    public void setImageList(ArrayList<Image> imageLists) {
+    public void setImageList(List<Image> imageLists) {
         this.imageList = imageLists;
     }
 }
