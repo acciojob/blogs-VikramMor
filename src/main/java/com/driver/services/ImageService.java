@@ -20,9 +20,9 @@ public class ImageService {
 
     public Image createAndReturn(Blog blog, String description, String dimensions){
 
-        Image image = new Image();
-        image.setDimensions(dimensions);
-        image.setDescription(description);
+        Image image = new Image(description,dimensions);
+//        image.setDimensions(dimensions);
+//        image.setDescription(description);
         List<Image> imageList = blog.getImageList();
         imageList.add(image);
         blog.setImageList((ArrayList<Image>) imageList);

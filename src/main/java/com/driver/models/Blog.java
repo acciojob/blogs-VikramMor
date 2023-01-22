@@ -78,7 +78,7 @@ public class Blog {
     }
 
     public List<Image> getImageList() {
-        return this.imageList;
+        return this.imageList = new ArrayList<>();
     }
 
     public void setImageList(ArrayList<Image> imageLists) {
